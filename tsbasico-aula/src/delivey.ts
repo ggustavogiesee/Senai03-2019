@@ -52,7 +52,7 @@ export class Delivery {
             (pedido : any) => {
                 this.dadosPedido = pedido;
 
-                if (pedido.Delivery == 'Sim') {
+                if (pedido.deliver == 'Sim') {
                     this.perguntarDadosEntrega();
                 } else {
                     this.imprimirRelatorio();
@@ -91,8 +91,8 @@ export class Delivery {
                 }
             ]
         ).then(
-            (entrega : any) => {
-                this.dadosEntrega = entrega;
+            (answers : any) => {
+                this.dadosEntrega = answers;
 
                 this.imprimirRelatorio();
             }
@@ -101,7 +101,7 @@ export class Delivery {
 
     private imprimirRelatorio() {
         console.log(
-            `\nOlá: ${this.dadosPedido.name}` +
+            `\nOlá${this.dadosPedido.name}` +
             `\nSeu número de telefone é: ${this.dadosPedido.telephone}` +
             `\nO Tamanho solicitado foi: ${this.dadosPedido.size}` +
             `\nSeu sabor é: ${this.dadosPedido.flavor}` +
@@ -115,7 +115,7 @@ export class Delivery {
                 `\nSeu bairro é: ${this.dadosEntrega.neighborhood}` +
                 `\nRua seria: ${this.dadosEntrega.street}` +
                 `\nO número da casa é: ${this.dadosEntrega.number}` +
-                `\nseu Complemento: ${this.dadosEntrega.complement}`);
+                `\nSeu complemento: ${this.dadosEntrega.complement}`);
         }
     }
 };
