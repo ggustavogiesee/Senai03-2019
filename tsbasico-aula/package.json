@@ -4,7 +4,7 @@
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "start": "tsc && node ./dist/deliveryPizza.js"
+    "start": "tsc && node ./dist/delivery.js"
   },
   "author": "",
   "license": "ISC",

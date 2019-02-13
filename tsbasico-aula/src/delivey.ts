@@ -1,6 +1,6 @@
 import { prompt } from 'inquirer';
 
-export class Pizzaria {
+export class Delivery {
     private dadosPedido : any = null;
     private dadosEntrega : any = null;
 
@@ -52,10 +52,10 @@ export class Pizzaria {
             (pedido : any) => {
                 this.dadosPedido = pedido;
 
-                if (pedido.deliver == 'Sim') {
+                if (pedido.Delivery == 'Sim') {
                     this.perguntarDadosEntrega();
                 } else {
-                    this.relatorio();
+                    this.imprimirRelatorio();
                 }
             }
          )
@@ -91,32 +91,33 @@ export class Pizzaria {
                 }
             ]
         ).then(
-            (entrega : any) => {
-                this.dadosEntrega = entrega;
+            (answers : any) => {
+                this.dadosEntrega = answers;
 
-                this.relatorio();
+                this.imprimirRelatorio();
             }
         )
     }
 
-    private relatorio() {
+    private imprimirRelatorio() {
         console.log(
-            `\nNome: ${this.dadosPedido.name}` +
-            `\nTelefone: ${this.dadosPedido.telephone}` +
-            `\nTamanho: ${this.dadosPedido.size}` +
-            `\nSabor: ${this.dadosPedido.flavor}` +
-            `\nQuantidade: ${this.dadosPedido.qtde}` +
-            `\nEntregar: ${this.dadosPedido.deliver}`
+            `\nOlá${this.dadosPedido.name}` +
+            `\nSeu número de telefone é: ${this.dadosPedido.telephone}` +
+            `\nO Tamanho solicitado foi: ${this.dadosPedido.size}` +
+            `\nSeu sabor é: ${this.dadosPedido.flavor}` +
+            `\nQuantidade pedida foi: ${this.dadosPedido.qtde}` +
+            `\nDeseja efetuar entrega? ${this.dadosPedido.Delivery}`
         );
 
         if (this.dadosEntrega != null) {
             console.log(
-                `\nCidade: ${this.dadosEntrega.city}` +
-                `\nBairro: ${this.dadosEntrega.neighborhood}` +
-                `\nRua: ${this.dadosEntrega.street} - nº ${this.dadosEntrega.number}` +
-                `\nComplemento: ${this.dadosEntrega.complement}`);
+                `\nA cidade é: ${this.dadosEntrega.city}` +
+                `\nSeu bairro é: ${this.dadosEntrega.neighborhood}` +
+                `\nRua seria: ${this.dadosEntrega.street}` +
+                `\nO número da casa é: ${this.dadosEntrega.number}` +
+                `\nseu Complemento: ${this.dadosEntrega.complement}`);
         }
     }
 };
 
-new Pizzaria().fazerPedido();
+new Delivery().fazerPedido();
