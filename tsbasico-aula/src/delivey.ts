@@ -91,8 +91,8 @@ export class Delivery {
                 }
             ]
         ).then(
-            (answers : any) => {
-                this.dadosEntrega = answers;
+            (entrega : any) => {
+                this.dadosEntrega = entrega;
 
                 this.imprimirRelatorio();
             }
@@ -101,12 +101,12 @@ export class Delivery {
 
     private imprimirRelatorio() {
         console.log(
-            `\nOlá${this.dadosPedido.name}` +
+            `\nOlá: ${this.dadosPedido.name}` +
             `\nSeu número de telefone é: ${this.dadosPedido.telephone}` +
             `\nO Tamanho solicitado foi: ${this.dadosPedido.size}` +
             `\nSeu sabor é: ${this.dadosPedido.flavor}` +
             `\nQuantidade pedida foi: ${this.dadosPedido.qtde}` +
-            `\nDeseja efetuar entrega? ${this.dadosPedido.Delivery}`
+            `\nDeseja efetuar entrega? ${this.dadosPedido.deliver}`
         );
 
         if (this.dadosEntrega != null) {
