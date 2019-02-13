@@ -1,12 +1,12 @@
 {
-  "name": "tsbasico-aula",
+  "name": "aula-11-02",
   "version": "1.0.0",
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "start": "tsc && node ./dist/pergunta.js"
+    "start": "tsc && node ./dist/deliveryPizza.js"
   },
-  "author": "Gustavo Giese",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/inquirer": "0.0.43",

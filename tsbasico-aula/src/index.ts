@@ -1,3 +1,3 @@
-import {OlaMundo} from "./olamundo";
+import { OlaMundo } from './olamundo';
 
 new OlaMundo().run();
