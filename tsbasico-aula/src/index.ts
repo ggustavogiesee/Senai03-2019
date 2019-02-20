@@ -1,3 +1,3 @@
-import { OlaMundo } from './olamundo';
+import Provaa from './Provaa';
 
-new OlaMundo().run();
+new Provaa().Prova();

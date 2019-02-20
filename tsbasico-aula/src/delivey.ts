@@ -1,123 +1,192 @@
-import { prompt } from 'inquirer';
+import {VpHttp} from './http/vphttp'
+import {prompt} from 'inquirer'
 
-export class Delivery {
+export class Delivery{
     private dadosPedido : any = null;
     private dadosEntrega : any = null;
+    private Sabor : any = [];
+    private Tamanho : any = [];
+    private Cidade : any = [];
+    private Bairro : any = [];
 
-    public fazerPedido() {
-        this.perguntarDadosPedido();
+    public fazerPedido(){
+        this.getTamanho();
+        
     }
 
-    private perguntarDadosPedido() {
-        prompt (
+    private perguntarDadosPedido(){
+        prompt(
             [
                 {
-                    name: 'name',
+                    name: 'nome',
                     type: 'input',
-                    message: 'Nome:',
+                    message: 'Qual o seu nome: ',
                 },
+
                 {
-                    name: 'telephone',
+                    name: 'telefone',
                     type: 'input',
-                    message: 'Telephone:',
+                    message: 'Seu telefone? ',
                 },
+
                 {
-                    name: 'size',
+                    name: 'tamanho',
                     type: 'list',
-                    message: 'Tamanho da Pizza:',
-                    choices: ['Pequena', 'Média', 'Grande'],
-                    default: 0,
+                    message: 'Qual o tamanho?',
+                    choices: this.Tamanho
                 },
+
                 {
-                    name: 'flavor',
+                    name: 'sabor',
                     type: 'list',
-                    message: 'Sabor da Pizza:',
-                    choices: ['Brócolis', 'Filé Migon', 'Alho e Oleo', 'Portuguesa', 'Seis queijos'],
-                    default: 0,
+                    message: 'Qual o sabor? ',
+                    choices: this.Sabor
                 },
-                {   
-                    name: 'qtde',
+
+                {
+                    name: 'quantidade',
                     type: 'input',
-                    message: 'Quantidade:',
-                    default: 1
+                    message: 'Quantas você deseja? ',
                 },
+
                 {
-                    name: 'deliver',
+                    name: 'entrega',
                     type: 'list',
-                    message: 'Entregar?',
-                    choices: ['Sim', 'Não']
+                    message: 'Deseja que seja entregue?',
+                    choices: ['Sim', 'Não'],
                 }
+
             ]
         ).then(
-            (pedido : any) => {
-                this.dadosPedido = pedido;
+            (answers : any) => {
+                this.dadosPedido = answers;
 
-                if (pedido.deliver == 'Sim') {
+                if (answers.entrega === 'Sim'){
                     this.perguntarDadosEntrega();
                 } else {
                     this.imprimirRelatorio();
                 }
             }
-         )
+        );
     }
 
-    private perguntarDadosEntrega() {
-        prompt (
+    private perguntarDadosEntrega(){
+        prompt(
             [
                 {
-                    name: 'city',
-                    type: 'input',
-                    message: 'Cidade:'
+                    name: 'cidade',
+                    type: 'list',
+                    message: 'Qual a cidade?',
+                    choices: this.Cidade
                 },
+
                 {
-                    name: 'neighborhood',
-                    type: 'input',
-                    message: 'Bairro:'
+                    name: 'bairro',
+                    type: 'list',
+                    message: 'Qual o bairro?',
+                    choices: this.Bairro
                 },
+
                 {
-                    name: 'street',
+                    name: 'rua',
                     type: 'input',
-                    message: 'Rua:'
+                    message: 'Qual a rua?',
                 },
+
                 {
-                    name: 'number',
+                    name: 'numero',
                     type: 'input',
-                    message: 'Número:'
+                    message: 'Qual o número?',
                 },
+
                 {
-                    name: 'complement',
+                    name: 'complemento',
                     type: 'input',
-                    message: 'Complemento:'
+                    message: 'Qual o complemento?',
                 }
             ]
         ).then(
-            (answers : any) => {
-                this.dadosEntrega = answers;
-
-                this.imprimirRelatorio();
-            }
-        )
+                (answers : any) => {
+                    this.dadosEntrega = answers;
+                    this.imprimirRelatorio();
+                }
+            );
     }
 
-    private imprimirRelatorio() {
-        console.log(
-            `\nOlá${this.dadosPedido.name}` +
-            `\nSeu número de telefone é: ${this.dadosPedido.telephone}` +
-            `\nO Tamanho solicitado foi: ${this.dadosPedido.size}` +
-            `\nSeu sabor é: ${this.dadosPedido.flavor}` +
-            `\nQuantidade pedida foi: ${this.dadosPedido.qtde}` +
-            `\nDeseja efetuar entrega? ${this.dadosPedido.deliver}`
-        );
-
-        if (this.dadosEntrega != null) {
-            console.log(
-                `\nA cidade é: ${this.dadosEntrega.city}` +
-                `\nSeu bairro é: ${this.dadosEntrega.neighborhood}` +
-                `\nRua seria: ${this.dadosEntrega.street}` +
-                `\nO número da casa é: ${this.dadosEntrega.number}` +
-                `\nSeu complemento: ${this.dadosEntrega.complement}`);
+    private imprimirRelatorio(){
+        console.log("Nome do cliente: "+this.dadosPedido.nome);
+        console.log("Telefone de "+this.dadosPedido.nome+": "+this.dadosPedido.telefone);
+        console.log("Tamanho da pizza pedida: "+this.dadosPedido.tamanho);
+        console.log("Sabor escolhido: "+this.dadosPedido.sabor);
+        console.log("Quantidade desejada "+this.dadosPedido.quantidade);
+        console.log("É para ser entregue? "+this.dadosPedido.entrega);
+        if (this.dadosEntrega !== null) {
+            console.log("======================")
+            console.log("Cidade a ser entregue: "+this.dadosEntrega.cidade);
+            console.log("Bairro a ser entregue: "+this.dadosEntrega.bairro);
+            console.log("Rua a ser entregue: "+this.dadosEntrega.rua);
+            console.log("Número da residencia: "+this.dadosEntrega.numero);
+            console.log("Complemento: "+this.dadosEntrega.complemento);
         }
     }
-};
 
-new Delivery().fazerPedido();
+    public getSabores(){
+        new VpHttp('http://5c649d4cc969210014a32ec3.mockapi.io/sabor').get().subscribe(
+            (data : any) => {
+                data.forEach((element : any) => {
+                    if(element.disponivel === true){
+                        this.Sabor.push(element.Nome)
+                    }
+                });
+                this.getCidade()
+            },
+            (error : any) => {
+                console.log(error);
+            }
+        );
+    }
+
+    public getTamanho(){
+        new VpHttp('http://5c649d4cc969210014a32ec3.mockapi.io/tamanho').get().subscribe(
+            (data : any) => {
+                data.forEach((element : any) => {
+                    this.Tamanho.push(element.Nome)
+                });
+                this.getSabores();
+            },
+            (error : any) => {
+                console.log(error);
+            }
+        );
+    }
+
+    public getCidade(){
+        new VpHttp('http://5c649d4cc969210014a32ec3.mockapi.io/cidade').get().subscribe(
+            (data : any) => {
+                data.forEach((element : any) => {
+                    this.Cidade.push(element.Nome)
+                    
+                });
+            this.GetBairro();
+            },
+            (error : any) => {
+                console.log(error);
+            }
+        );
+    }
+
+    public GetBairro(){
+        new VpHttp('http://5c649d4cc969210014a32ec3.mockapi.io/bairro').get().subscribe(
+            (data : any) => {
+                data.forEach((element : any) => {
+                    this.Bairro.push(element.Nome)
+                   
+                });
+            this.perguntarDadosPedido();
+            },
+            (error : any) => {
+                console.log(error);
+            }
+        );
+    }
+}
